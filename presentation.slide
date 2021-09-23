@@ -1,0 +1,441 @@
+# Go Templates
+Great Library, Bad Rap
+
+Carson Anderson
+DevX Engineer, Weave
+@carson_ops
+
+https://github.com/carsonoid/talk-gowest2021-go-templates
+
+## Why do we need templates?
+
+.image img/9.png 450 _
+.caption _Gopher_ by [[https://github.com/MariaLetta/free-gophers-pack][Maria Letta]]
+
+## To avoid this
+
+.play examples/ugly.go /START OMIT/,/END OMIT/
+
+## And we add more data..?
+
+.code examples/uglier.go /START DATA OMIT/,/END DATA OMIT/
+
+## It gets worse:
+
+.play examples/uglier.go /START CODE OMIT/,/END CODE OMIT/
+
+## What if we could fix it?
+
+.code templates/uglier-fixed.go.tmpl
+
+.play examples/uglier-fixed.go /START CODE OMIT/,/END CODE OMIT/
+
+## We can also replace it and not change our code
+
+.code templates/uglier-fixed-minimal.go.tmpl
+
+.play examples/uglier-fixed-minimal.go /START CODE OMIT/,/END CODE OMIT/
+
+## Why do we need templates?
+
+1. To separate presentation logic from code
+2. To allow user-defined presentation logic
+
+.image img/63.png 350 _
+.caption _Gopher_ by [[https://github.com/MariaLetta/free-gophers-pack][Maria Letta]]
+
+## How do I use it?
+
+## Introduction
+
+Setup:
+
+* `import "text/template"`
+* `import "html/template"`
+
+> Be wary of auto-importing in your IDE. These packages have near-identical
+> interfaces but will handle values differently
+
+Almost everything in this talk applies to both but most examples will use `text/template`
+
+## Introduction
+
+.code examples/intro.go /START new/,/END new/
+
+## Introduction
+
+.code examples/intro.go /START new/,/END new/
+.code examples/intro.go /START parse/,/END parse/
+
+
+## Introduction
+
+.code examples/intro.go /START new/,/END new/
+.code examples/intro.go /START parse/,/END parse/
+.play examples/intro.go /START execute/,/END execute/
+
+## Introduction - Compact
+
+`template` functions can be chained to simplify the code.
+
+ For this hard-coded use case we can also ignore the errors.
+
+.play examples/basic.go
+
+## Introduction - Minimal
+
+`template.Must` is a helper that allows for easy package var assignment and one-liners. It ensures a panic on any parse error.
+
+.play -edit examples/basic-minimal.go
+
+## Text vs HTML Template
+
+html template will always parse rendered values to be html safe
+
+.play examples/basic-minimal-html.go
+
+## Large Static Templates
+
+Large and complex templates get ugly
+
+.play examples/large-template-pre.go
+
+## Large Static Templates
+
+Even in a constant
+
+.play examples/large-template.go
+
+## Large Static Templates
+
+You can of course load them from a file:
+
+.play examples/parsefile.go
+
+## Large Static Templates
+
+Thanks `go:embed`!
+
+.play examples/embed.go
+
+<!-- ## Multiple Templates -->
+
+<!-- What if I have multiple templates? -->
+
+<!-- Do I have to parse or embed them one at a time? -->
+
+<!-- Of course not! -->
+
+<!-- ## Advanced: ParseGlob - Load multiple files at once! -->
+
+<!-- .play examples/parseglob.go -->
+
+<!-- ## Advanced: ParseFS - go:embed helps again! -->
+
+<!-- .play examples/embed-fs.go -->
+
+## Onto the Template Language!
+
+## Simple Pipelines ( Printing )
+
+.code examples/pipelines.go /START DATA OMIT/,/END DATA OMIT/
+
+.play examples/pipelines.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
+
+## Seem familiar?
+
+.code examples/pipelines-print.go /START DATA OMIT/,/END DATA OMIT/
+
+.play examples/pipelines-print.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
+
+## But Why "Pipelines"?
+
+.code examples/pipelines-intro-1.go /START DATA OMIT/,/END DATA OMIT/
+
+.play -edit examples/pipelines-intro-1.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
+.play -edit examples/pipelines-intro-3.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
+.play -edit examples/pipelines-intro-2.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
+.play -edit examples/pipelines-intro-4.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
+
+## Logic
+
+Templates support `if` and  `else if` and `else` blocks:
+
+.play -edit examples/logic.go /START DATA OMIT/,/END DATA OMIT/
+
+.code examples/logic.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
+
+## Logic
+
+Templates support `if` and  `else if` and `else` blocks:
+
+.play -edit examples/logic.go /START DATA OMIT/,/END DATA OMIT/
+
+.code examples/logic.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
+
+> NOTE: `if` is "falsey"
+
+## Logic - Advanced
+
+`if` can use complex pipelines:
+
+.play -edit examples/logic-adv.go /START DATA OMIT/,/END DATA OMIT/
+
+.code examples/logic-adv.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
+
+## Whitespace!
+
+.code examples/whitespace-intro-1.go /START DATA OMIT/,/END DATA OMIT/
+
+.play examples/whitespace-intro-1.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
+
+## Whitespace!
+
+There are newlines in the template, even after the lines
+that only contain conditionals!
+
+Visualized:
+
+.code examples/whitespace-intro-viz.go /START EXAMPLE OMIT/,/END EXAMPLE OMIT/
+
+## Bad Idea
+
+.play examples/whitespace-intro-bad.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
+
+## Good idea: Chomp
+
+Using `{{-` or `-}}` in any action will cause the templates to trim all whitespace
+in the direction of the `-`
+
+.play examples/whitespace-intro-2.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
+
+## But be wary!
+
+`chomping` is greedy! It will eat **all** whitespace.
+
+.play examples/whitespace-intro-3.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
+
+## Gotcha: The first line
+
+`{{-` doesn't really work as expected when it's on the first line:
+
+.play  -edit examples/whitespace-intro-4.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
+
+## Gotcha: The first line
+
+`{{-` doesn't really work as expected when it's on the first line:
+
+.play examples/whitespace-intro-4.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
+
+## Gotcha: The first line
+
+You can fix it though!
+
+.play examples/whitespace-intro-4-fixed.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
+
+.play examples/whitespace-intro-4-fixed2.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
+
+
+## Comments
+
+Templates support comments! So use the to keep things readable
+
+.play -edit examples/comments.go /START DATA OMIT/,/END DATA OMIT/
+
+.code examples/comments.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
+
+
+## Variables
+
+.play -edit examples/variables.go /START DATA OMIT/,/END DATA OMIT/
+
+Without them, things get ugly:
+
+.code examples/variables.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
+
+
+## Variables keep things clean
+
+.play -edit examples/variables-fixed.go /START DATA OMIT/,/END DATA OMIT/
+
+.code examples/variables-fixed.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
+
+## But be wary of scope
+
+.play -edit examples/variables-scope.go /START DATA OMIT/,/END DATA OMIT/
+
+.code examples/variables-scope.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
+
+## You can fix it!
+
+.play -edit examples/variables-scope-fixed.go /START DATA OMIT/,/END DATA OMIT/
+
+.code examples/variables-scope-fixed.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
+
+## "dot" - watch your context!
+
+By default, `.` "dot" is the full data object passed when called
+
+.play -edit examples/context-intro.go /START CODE OMIT/,/END CODE OMIT/
+
+.code examples/context-intro.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
+
+## "dot" - you can change it!
+
+Use `with` to explicitly change dot and simplify conditions.
+
+`with` acts as a "falsey" operator and will also update dot by default
+
+.play examples/context-adv.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
+
+## "dot" - you can change it!
+
+Use variables to preserve old context or `$` to access the root.
+
+.play examples/context-adv-2.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
+
+
+## Loops
+
+Templates can use `range` to iterate slices and maps.
+
+> `range` always sets `.`
+
+## Loops
+
+`range` works a bit different from normal code in a single-value context:
+
+* maps:  **value** by default, not *key*
+* Slices: **item** by default, not *index*
+
+## range in code
+
+.play -edit examples/loops-code.go /START DATA OMIT/,/END DATA OMIT/
+
+.code examples/loops-code.go /START CODE OMIT/,/END CODE OMIT/
+
+## range in templates
+
+.play -edit examples/loops.go /START DATA OMIT/,/END DATA OMIT/
+
+.code examples/loops.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
+
+## range with variable
+
+.play -edit examples/loops-var.go /START DATA OMIT/,/END DATA OMIT/
+
+.code examples/loops-var.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
+
+
+## Loops - Advanced
+
+Use variable assignment to get map key/value and slice index/item vars
+
+.play -edit examples/loops-adv.go /START DATA OMIT/,/END DATA OMIT/
+
+.code examples/loops-adv.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
+
+## Loops - Silly
+
+Technically... you can `range` a channel too. But your template execution
+won't complete until the channel is closed
+
+.code -edit examples/loops-silly.go /START DATA OMIT/,/END DATA OMIT/
+
+.play examples/loops-silly.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
+
+## Function Maps
+
+## Complex logic can get ugly
+
+.play -edit examples/funcmaps.go /START DATA OMIT/,/END DATA OMIT/
+
+.code examples/funcmaps.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
+
+## Funcmaps can help!
+
+.code examples/funcmaps-fixed.go /START CODE OMIT/,/END CODE OMIT/
+
+## Funcmaps make things clean
+
+.play examples/funcmaps-fixed.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
+
+## Premade funcmaps
+
+The [sprig](https://github.com/Masterminds/sprig) package provides a very
+useful and rich function map with a lot of very common and useful helper functions
+
+.image img/sprig.png 450 _
+
+## Powermove: FuncMaps + closures
+
+What if we have a feature flags map?
+
+.code examples/funcmaps-feature-bad.go /START DATA OMIT/,/END DATA OMIT/
+
+## Powermove: FuncMaps + closures
+
+* The `index` action isn't enough to tell the difference between false and unset
+* Constantly passing the features map is ugly
+
+.code examples/funcmaps-feature-bad.go /START FEATS OMIT/,/END FEATS OMIT/
+
+.play examples/funcmaps-feature-bad.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
+
+## Powermove: FuncMaps + closures
+
+Usage a closure to capture the flags and clean up the interface
+
+.code examples/funcmaps-closure.go /START CODE OMIT/,/END CODE OMIT/
+
+## Powermove: FuncMaps + closures
+
+Using the function with a closure is simple and clean and repeatable:
+
+.play examples/funcmaps-closure.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
+
+## Use `define` and `template` for reuse
+
+.play -edit examples/includes.go /START DATA OMIT/,/END DATA OMIT/
+
+.code examples/includes.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
+
+## Can you allow args in sub-templates?
+
+The docs say you can only pass one thing:
+
+> {{template "name" pipeline}}
+
+.play examples/includes-tuple.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
+
+## `tuple` to the rescue!
+
+`sprig` includes a `tuple` helper function which can enable this. Or you can just duplicate it as the code is trivial
+
+.code examples/sprig-tuple.go /START CODE OMIT/,/END CODE OMIT/
+
+.code examples/includes-tuple.go /START CODE OMIT/,/END CODE OMIT/
+
+## Using `tuple` to allow args in template
+
+.play examples/includes-tuple-fixed.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
+
+## Powermove: Use `with` + `tuple` to reset "dot"
+
+.play examples/includes-tuple-with.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
+
+##  How it started:
+
+.play -edit examples/conclusion.go /START CODE OMIT/,/END CODE OMIT/
+
+.code examples/conclusion.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
+
+## How it's going:
+
+.play examples/conclusion-fixed.go /START CODE OMIT/,/END CODE OMIT/
+
+.code examples/conclusion-fixed.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
+
+<!-- ## Advanced Usage - Multiple Templates -->
+
+<!-- .play examples/multiple.go -->

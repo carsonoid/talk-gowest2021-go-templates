@@ -1,0 +1,13 @@
+Company: {{ .Company }}
+{{- with .Employees }}
+Employees:
+{{- range . }}
+- {{ . }}
+    {{- with employeeTeams . }}
+    Teams:
+    {{- range . }}
+      - {{ . }}
+    {{- end }}
+    {{- end }}
+{{- end }}
+{{- end }}
