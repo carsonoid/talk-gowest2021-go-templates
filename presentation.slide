@@ -241,8 +241,6 @@ Without them, things get ugly:
 
 .play -edit examples/variables-fixed.go /START DATA OMIT/,/END DATA OMIT/
 
-Without them, things get ugly:
-
 .code examples/variables-fixed.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
 
 ## But be wary of scope
@@ -264,7 +262,7 @@ Without them, things get ugly:
 
 .play examples/context.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
 
-## Context can make our variables example cleaner
+## Use `with` to simplify
 
 .play -edit examples/context-adv.go /START DATA OMIT/,/END DATA OMIT/
 

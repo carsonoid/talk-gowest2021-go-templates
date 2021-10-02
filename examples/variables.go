@@ -19,24 +19,30 @@ var data = struct {
 
 const templateText = `
 {{- "" -}}
-{{ .Company }}:
-{{ len .Employees | printf "# employees: %03d" }}
-{{- if eq (len .Employees) 1 }} is imposible
-{{- else if eq (len .Employees) 2 }} is dreary
-{{- else if ge (len .Employees) 3 }} is company; safe and cheery
-{{- else }}- I have no comment{{- end }}
+-Company Report-
+{{ .Company }}{{ printf " has %d employees" (len .Employees) }}
+{{- if eq (len .Employees) 1 }}
+{{ printf "%d is impossible" (len .Employees) | printf "> %q" }}
+{{- else if eq (len .Employees) 2 }}
+{{ printf "%d is dreary" (len .Employees) | printf "> %q" }}
+{{- else if ge (len .Employees) 3 }}
+{{ printf "%d is company; safe and cheery" (len .Employees) | printf "> %q" }}
+{{- end -}}
 {{- "" -}}
 `
 
 const templateTextView = `
 {{- "" -}}
 // START TEMPLATE OMIT
-{{ .Company }}:
-{{ len .Employees | printf "# employees: %03d" }}
-{{- if eq (len .Employees) 1 }} is imposible
-{{- else if eq (len .Employees) 2 }} is dreary
-{{- else if ge (len .Employees) 3 }} is company; safe and cheery
-{{- else }}- I have no comment{{- end }}
+-Company Report-
+{{ .Company }}{{ printf " has %d employees" (len .Employees) }}
+{{- if eq (len .Employees) 1 }}
+{{ printf "%d is impossible" (len .Employees) | printf "> %q" }}
+{{- else if eq (len .Employees) 2 }}
+{{ printf "%d is dreary" (len .Employees) | printf "> %q" }}
+{{- else if ge (len .Employees) 3 }}
+{{ printf "%d is company; safe and cheery" (len .Employees) | printf "> %q" }}
+{{- end -}}
 // END TEMPLATE OMIT
 {{- "" -}}
 `

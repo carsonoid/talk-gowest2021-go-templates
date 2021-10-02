@@ -19,26 +19,32 @@ var data = struct {
 
 const templateText = `
 {{- "" -}}
-{{ .Company }}:
+-Company Report-
 {{- $num := len .Employees }}
-{{ printf "# employees: %03d" $num }}
-{{- if eq $num 1 }} is imposible
-{{- else if eq $num 2 }} is dreary
-{{- else if ge $num 3 }} is company; safe and cheery
-{{- else }}- I have no comment{{- end }}
+{{ .Company }}{{ printf " has %d employees" $num }}
+{{- if eq $num 1 }}
+{{ printf "%d is impossible" $num | printf "> %q" }}
+{{- else if eq $num 2 }}
+{{ printf "%d is dreary" $num | printf "> %q" }}
+{{- else if ge $num 3 }}
+{{ printf "%d is company; safe and cheery" $num | printf "> %q" }}
+{{- end -}}
 {{- "" -}}
 `
 
 const templateTextView = `
 {{- "" -}}
 // START TEMPLATE OMIT
-{{ .Company }}:
-{{ $num := len .Employees }}
-{{ printf "# employees: %03d" $num }}
-{{- if eq $num 1 }} is imposible
-{{- else if eq $num 2 }} is dreary
-{{- else if ge $num 3 }} is company; safe and cheery
-{{- else }}- I have no comment{{- end }}
+-Company Report-
+{{- $num := len .Employees }}
+{{ .Company }}{{ printf " has %d employees" $num }}
+{{- if eq $num 1 }}
+{{ printf "%d is impossible" $num | printf "> %q" }}
+{{- else if eq $num 2 }}
+{{ printf "%d is dreary" $num | printf "> %q" }}
+{{- else if ge $num 3 }}
+{{ printf "%d is company; safe and cheery" $num | printf "> %q" }}
+{{- end -}}
 // END TEMPLATE OMIT
 {{- "" -}}
 `
