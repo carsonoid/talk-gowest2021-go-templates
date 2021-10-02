@@ -256,26 +256,32 @@ Without them, things get ugly:
 .code examples/variables-scope-fixed.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
 
 
-## Context, Context, Context
+## "dot" - watch your context!
 
-.code examples/context.go /START DATA OMIT/,/END DATA OMIT/
+By default, `.` "dot" is the full data object passed when called
 
-.play examples/context.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
+.play -edit examples/context-intro.go /START CODE OMIT/,/END CODE OMIT/
 
-## Use `with` to simplify
+.code examples/context-intro.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
 
-.play -edit examples/context-adv.go /START DATA OMIT/,/END DATA OMIT/
+## "dot" - you can change it!
 
-.code examples/context-adv.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
+Use `with` to explicitly change dot and simplify conditions.
+
+`with` acts as a "falsey" operator and will also update dot by default
+
+.play examples/context-adv.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
 
 ## Loops
 
-Templates can use `range` to iterate slices and maps
+Templates can use `range` to iterate slices and maps.
 
 It works a bit different from normal code in a single-value context:
 
 * maps:  **value** by default, not *key*
 * Slices: **item** by default, not *index*
+
+> `range` sets `.` **by default**!
 
 ## range in code
 

@@ -8,19 +8,13 @@ import (
 
 const templateText = `
 {{- "" -}}
-My context looks like this:     {{ . }}
-{{- with .Company }}
-"with .Company" the context is: {{ . }}
-{{- end }}
+My context looks like this: {{ . }}
 {{- "" -}}
 `
 
 const templateTextView = `
 // START TEMPLATE OMIT
-My context looks like this:     {{ . }}
-{{- with .Company }}
-"with .Company" the context is: {{ . }}
-{{- end }}
+My context looks like this: {{ . }}
 // END TEMPLATE OMIT
 `
 

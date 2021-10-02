@@ -12,16 +12,25 @@ var data = struct {
 	Employees []string
 }{
 	"Weave",
-	[]string{"Carson", "Kari", "Jake"},
+	[]string{"Carson", "Kari", "Tami"},
 }
 
 // END DATA OMIT
 
 const templateText = `
+{{- "" -}}
+{{- .Company }}:
+{{- if .Employees }}
+Employees: {{ .Employees }}
+{{- end }}
+{{- "" -}}
+`
+
+const templateTextView = `
 // START TEMPLATE OMIT
-{{- .Company }} Employees:
-{{- range .Employees }}
- - {{ . }}
+{{- .Company }}:
+{{- if .Employees }}
+Employees: {{ .Employees }}
 {{- end }}
 // END TEMPLATE OMIT
 `
