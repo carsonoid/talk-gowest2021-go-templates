@@ -13,6 +13,44 @@ https://github.com/carsonoid/talk-gowest2020-go-types
 
 * Parse tree?
 
+## Why do we need templates?
+
+.image img/9.png 450 _
+.caption _Gopher_ by [[https://github.com/MariaLetta/free-gophers-pack][Maria Letta]]
+
+## To avoid this
+
+.play examples/ugly.go /START OMIT/,/END OMIT/
+
+## And we add more data..?
+
+.play examples/uglier.go /START DATA OMIT/,/END DATA OMIT/
+
+## It gets worse:
+
+.play examples/uglier.go /START CODE OMIT/,/END CODE OMIT/
+
+## What if we could fix it?
+
+.code templates/uglier-fixed.go.tmpl
+
+.play examples/uglier-fixed.go /START CODE OMIT/,/END CODE OMIT/
+
+## We can also replace it and not change our code
+
+.code templates/uglier-fixed-minimal.go.tmpl
+
+.play examples/uglier-fixed-minimal.go /START CODE OMIT/,/END CODE OMIT/
+
+## Why do we need templates?
+
+1. To separate presentation logic from code
+2. To allow user-defined presentation logic
+
+.image img/63.png 350 _
+.caption _Gopher_ by [[https://github.com/MariaLetta/free-gophers-pack][Maria Letta]]
+
+
 ## Introduction
 
 Setup:
@@ -150,33 +188,6 @@ Templates support `if` and  `else if` and `else` blocks:
 
 .code examples/logic-adv.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
 
-## Loops
-
-Templates can use `range` to iterate slices and maps
-
-It works a bit different from normal code. It does the slice **item** and map **value**
-
-.play -edit examples/loops.go /START DATA OMIT/,/END DATA OMIT/
-
-.code examples/loops.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
-
-## Loops - Advanced
-
-Use variable assignment to get map key/value and slice index/item vars
-
-.play -edit examples/loops-adv.go /START DATA OMIT/,/END DATA OMIT/
-
-.code examples/loops-adv.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
-
-## Loops - Silly
-
-Technically... you can `range` a channel too. But your template execution
-won't complete until the channel is closed
-
-.code -edit examples/loops-silly.go /START DATA OMIT/,/END DATA OMIT/
-
-.play examples/loops-silly.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
-
 ## Whitespace, Oh My!
 
 .code examples/whitespace-intro-1.go /START DATA OMIT/,/END DATA OMIT/
@@ -217,6 +228,35 @@ You can fix it though!
 
 .play examples/whitespace-intro-4-fixed2.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
 
+## Variables
+
+.play -edit examples/variables.go /START DATA OMIT/,/END DATA OMIT/
+
+Without them, things get ugly:
+
+.code examples/variables.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
+
+
+## Variables keep things clean
+
+.play -edit examples/variables-fixed.go /START DATA OMIT/,/END DATA OMIT/
+
+Without them, things get ugly:
+
+.code examples/variables-fixed.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
+
+## But be wary of scope
+
+.play -edit examples/variables-scope.go /START DATA OMIT/,/END DATA OMIT/
+
+.code examples/variables-scope.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
+
+## You can fix it!
+
+.play -edit examples/variables-scope-fixed.go /START DATA OMIT/,/END DATA OMIT/
+
+.code examples/variables-scope-fixed.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
+
 
 ## Context, Context, Context
 
@@ -224,7 +264,49 @@ You can fix it though!
 
 .play examples/context.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
 
-## Variables
+## Context can make our variables example cleaner
+
+.play -edit examples/context-adv.go /START DATA OMIT/,/END DATA OMIT/
+
+.code examples/context-adv.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
+
+## Loops
+
+Templates can use `range` to iterate slices and maps
+
+It works a bit different from normal code in a single-value context:
+
+* maps:  **value** by default, not *key*
+* Slices: **item** by default, not *index*
+
+## range in code
+
+.play -edit examples/loops-code.go /START DATA OMIT/,/END DATA OMIT/
+
+.code examples/loops-code.go /START CODE OMIT/,/END CODE OMIT/
+
+## range in templates
+
+.play -edit examples/loops.go /START DATA OMIT/,/END DATA OMIT/
+
+.code examples/loops.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
+
+## Loops - Advanced
+
+Use variable assignment to get map key/value and slice index/item vars
+
+.play -edit examples/loops-adv.go /START DATA OMIT/,/END DATA OMIT/
+
+.code examples/loops-adv.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
+
+## Loops - Silly
+
+Technically... you can `range` a channel too. But your template execution
+won't complete until the channel is closed
+
+.code -edit examples/loops-silly.go /START DATA OMIT/,/END DATA OMIT/
+
+.play examples/loops-silly.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
 
 ## Using FuncMaps to hide complexity
 

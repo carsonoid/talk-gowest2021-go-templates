@@ -19,9 +19,9 @@ var data = struct {
 
 const templateText = `
 {{- "" -}}
-Team Descriptions:
+Map Range:
 {{ range $k, $v := .TeamDescriptions }}{{ println $k "is" $v }}{{ end }}
-Employees:
+Slice Range:
 {{ range $i, $x := .Employees }}{{ println $i $x  }}{{ end }}
 {{- "" -}}
 `
@@ -29,9 +29,9 @@ Employees:
 const templateTextView = `
 {{- "" -}}
 // START TEMPLATE OMIT
-Team Descriptions:
+Map Range:
 {{ range $k, $v := .TeamDescriptions }}{{ println $k "is" $v }}{{ end }}
-Employees:
+Slice Range:
 {{ range $i, $x := .Employees }}{{ println $i $x  }}{{ end }}
 // END TEMPLATE OMIT
 {{- "" -}}

@@ -2,7 +2,7 @@ package main
 
 import (
 	_ "embed"
-	"os"
+	"fmt"
 	"text/template"
 )
 
@@ -19,30 +19,30 @@ var data = struct {
 
 const templateText = `
 {{- "" -}}
-Map Range:
+Team Descriptions:
 {{ range .TeamDescriptions }}{{ println . }}{{ end }}
-Slice Range:
+Employees:
 {{ range .Employees }}{{ println . }}{{ end }}
 {{- "" -}}
 `
 
 const templateTextView = `
 {{- "" -}}
-// START TEMPLATE OMIT
-Map Range:
-{{ range .TeamDescriptions }}{{ println . }}{{ end }}
-Slice Range:
-{{ range .Employees }}{{ println . }}{{ end }}
-// END TEMPLATE OMIT
+
 {{- "" -}}
 `
 
 var tmpl = template.Must(template.New("hello").Parse(templateText))
 
 func main() {
-	err := tmpl.Execute(os.Stdout, data)
-	if err != nil {
-		panic(err)
-		// NOTE: This error is not reachable in this example
+	// START CODE OMIT
+	fmt.Println("Map Range:")
+	for x := range data.TeamDescriptions {
+		fmt.Println(x)
 	}
+	fmt.Println("Slice Range:")
+	for x := range data.Employees {
+		fmt.Println(x)
+	}
+	// END CODE OMIT
 }
