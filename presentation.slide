@@ -312,10 +312,33 @@ won't complete until the channel is closed
 
 .play examples/loops-silly.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
 
-## Using FuncMaps to hide complexity
+## Function Maps
 
-## Helper libraries
-  * sprig
+## Complex logic can get ugly
+
+.play -edit examples/funcmaps.go /START DATA OMIT/,/END DATA OMIT/
+
+.code examples/funcmaps.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
+
+## Funcmaps can help!
+
+.code examples/funcmaps-fixed.go /START CODE OMIT/,/END CODE OMIT/
+
+## Funcmaps make things clean
+
+.play examples/funcmaps-fixed.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
+
+## Premade funcmaps
+
+The [sprig](https://github.com/Masterminds/sprig) package provides a very
+useful and rich function map with a lot of very common and useful helper functions
+
+TODO: Example sprig file
+
+## Powermove: FuncMaps + closures
+
+.play examples/funcmaps-closure.go /START CODE OMIT/,/END CODE OMIT/
+
 
 ## includes and sub-templates
   * Show `tuple` trick for args
