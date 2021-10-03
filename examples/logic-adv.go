@@ -11,7 +11,7 @@ var data = struct {
 	Company   string
 	Employees []string
 }{
-	"",
+	"Gophers Inc.",
 	[]string{"Carson", "Kari", "Tami", "Raul"},
 }
 
@@ -19,7 +19,7 @@ var data = struct {
 
 const templateText = `
 {{- "" -}}
-Company: {{ .Company }}{{ if eq .Company "Weave" }} is great!{{ end }}
+Company: {{ .Company }}{{ if .Company | eq "Weave" }} is great!{{ end }}
 {{ if gt (len .Employees) 2 }}Lots of employees!{{ end }}
 {{- "" -}}
 `
@@ -27,7 +27,7 @@ Company: {{ .Company }}{{ if eq .Company "Weave" }} is great!{{ end }}
 const templateTextView = `
 {{- "" -}}
 // START TEMPLATE OMIT
-Company: {{ .Company }}{{ if eq .Company "Weave" }} is great!{{ end }}
+Company: {{ .Company }}{{ if .Company | eq "Weave" }} is great!{{ end }}
 {{ if gt (len .Employees) 2 }}Lots of employees!{{ end }}
 // END TEMPLATE OMIT
 {{- "" -}}

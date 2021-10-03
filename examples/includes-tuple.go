@@ -65,7 +65,7 @@ Dogs: // HL
 
 // START CODE OMIT
 // add a `tuple` function for better templates
-var tmpl = template.Must(template.New("tuple").
+var tmpl = template.Must(template.New("args").
 	Funcs(map[string]interface{}{
 		"tuple": func(v ...interface{}) []interface{} {
 			return v

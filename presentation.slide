@@ -5,7 +5,7 @@ Carson Anderson
 DevX Engineer, Weave
 @carson_ops
 
-https://github.com/carsonoid/talk-gowest2020-go-types
+https://github.com/carsonoid/talk-gowest2021-go-templates
 
 ## Why do we need templates?
 
@@ -173,6 +173,8 @@ Templates support `if` and  `else if` and `else` blocks:
 
 .code examples/logic.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
 
+> NOTE: `if` is "falsey"
+
 ## Logic - Advanced
 
 `if` can use complex pipelines:
@@ -335,7 +337,7 @@ won't complete until the channel is closed
 The [sprig](https://github.com/Masterminds/sprig) package provides a very
 useful and rich function map with a lot of very common and useful helper functions
 
-TODO: Example sprig file
+.image img/sprig.png 450 _
 
 ## Powermove: FuncMaps + closures
 

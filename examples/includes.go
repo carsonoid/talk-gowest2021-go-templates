@@ -43,7 +43,7 @@ const templateTextView = `
 // START TEMPLATE OMIT
 {{- /* sub-template */ -}}
 {{- define "employee" }}
-{{ .First }} {{ .Middle }} {{ .Last }} - {{ .Job }}
+{{ .First }} {{ .Last }} - {{ .Job }}
 {{- end -}}
 Employees:
 {{- range .Employees }}
