@@ -13,7 +13,7 @@ var data = struct {
 	Features  map[string]bool
 }{
 	"Weave",
-	[]string{"Carson", "Kari", "Tami & Raul"},
+	[]string{"Carson", "Kari", "Tami", "Raul"},
 	map[string]bool{
 		"beta-db": true,
 		"new-ui":  false,

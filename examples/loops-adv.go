@@ -12,7 +12,7 @@ var data = struct {
 	Employees        []string
 }{
 	map[string]string{"DevX": "Amazing!"},
-	[]string{"Carson", "Kari", "Tami & Raul"},
+	[]string{"Carson", "Kari", "Tami", "Raul"},
 }
 
 // END DATA OMIT

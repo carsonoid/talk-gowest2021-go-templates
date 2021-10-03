@@ -1,5 +1,4 @@
 # Go Templates
-
 Great Library, Bad Rap
 
 Carson Anderson
@@ -7,11 +6,6 @@ DevX Engineer, Weave
 @carson_ops
 
 https://github.com/carsonoid/talk-gowest2020-go-types
-
-
-## TODO
-
-* Parse tree?
 
 ## Why do we need templates?
 
@@ -24,7 +18,7 @@ https://github.com/carsonoid/talk-gowest2020-go-types
 
 ## And we add more data..?
 
-.play examples/uglier.go /START DATA OMIT/,/END DATA OMIT/
+.code examples/uglier.go /START DATA OMIT/,/END DATA OMIT/
 
 ## It gets worse:
 
@@ -50,6 +44,7 @@ https://github.com/carsonoid/talk-gowest2020-go-types
 .image img/63.png 350 _
 .caption _Gopher_ by [[https://github.com/MariaLetta/free-gophers-pack][Maria Letta]]
 
+## How do I use it?
 
 ## Introduction
 
@@ -62,8 +57,6 @@ Setup:
 > interfaces but will handle values differently
 
 Almost everything in this talk applies to both but most examples will use `text/template`
-
-## How do I use it?
 
 ## Introduction
 
@@ -133,21 +126,21 @@ Thanks `go:embed`!
 
 .play examples/embed.go
 
-## Multiple Templates
+<!-- ## Multiple Templates -->
 
-What if I have multiple templates?
+<!-- What if I have multiple templates? -->
 
-Do I have to parse or embed them one at a time?
+<!-- Do I have to parse or embed them one at a time? -->
 
-Of course not!
+<!-- Of course not! -->
 
-## Advanced: ParseGlob - Load multiple files at once!
+<!-- ## Advanced: ParseGlob - Load multiple files at once! -->
 
-.play examples/parseglob.go
+<!-- .play examples/parseglob.go -->
 
-## Advanced: ParseFS - go:embed helps again!
+<!-- ## Advanced: ParseFS - go:embed helps again! -->
 
-.play examples/embed-fs.go
+<!-- .play examples/embed-fs.go -->
 
 ## Onto the Template Language!
 
@@ -188,7 +181,7 @@ Templates support `if` and  `else if` and `else` blocks:
 
 .code examples/logic-adv.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
 
-## Whitespace, Oh My!
+## Whitespace!
 
 .code examples/whitespace-intro-1.go /START DATA OMIT/,/END DATA OMIT/
 
@@ -203,9 +196,9 @@ Visualized:
 
 .code examples/whitespace-intro-2.go /START EXAMPLE OMIT/,/END EXAMPLE OMIT/
 
-## Time to Chomp!
+## Time to Chomp
 
-Using `{{-` or `-}}` in any pipeline will cause the templates to trim all whitespace
+Using `{{-` or `-}}` in any action will cause the templates to trim all whitespace
 in the direction of the `-`
 
 .play examples/whitespace-intro-2.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/

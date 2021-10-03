@@ -10,7 +10,7 @@ func main() {
 		Employees []string
 	}{
 		"Weave",
-		[]string{"Carson", "Kari", "Tami & Raul"},
+		[]string{"Carson", "Kari", "Tami", "Raul"},
 	}
 
 	fmt.Println("Company:", data.Company)
