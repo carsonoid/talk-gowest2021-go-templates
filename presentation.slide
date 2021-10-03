@@ -337,14 +337,34 @@ TODO: Example sprig file
 
 ## Powermove: FuncMaps + closures
 
-.play examples/funcmaps-closure.go /START CODE OMIT/,/END CODE OMIT/
+What if we have a feature flags map?
 
+.code examples/funcmaps-feature-bad.go /START DATA OMIT/,/END DATA OMIT/
+
+## Powermove: FuncMaps + closures
+
+* The `index` action isn't enough to tell the difference between false and unset
+* Constantly passing the features map is ugly
+
+.code examples/funcmaps-feature-bad.go /START FEATS OMIT/,/END FEATS OMIT/
+
+.play examples/funcmaps-feature-bad.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
+
+## Powermove: FuncMaps + closures
+
+Usage a closure to capture the flags and clean up the interface
+
+.code examples/funcmaps-closure.go /START CODE OMIT/,/END CODE OMIT/
+
+## Powermove: FuncMaps + closures
+
+Using the function with a closure is simple and clean and repeatable:
+
+.play examples/funcmaps-closure.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
 
 ## includes and sub-templates
   * Show `tuple` trick for args
   * Show `with` trick to re-parent
-
-## Better editing with `go embed`
 
 ## Bigginner vs Pro
 

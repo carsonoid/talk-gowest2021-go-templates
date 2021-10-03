@@ -10,63 +10,72 @@ import (
 var data = struct {
 	Company   string
 	Employees []string
+	Features  map[string]bool
 }{
 	"Weave",
 	[]string{"Carson", "Kari", "Tami & Raul"},
+	map[string]bool{
+		"beta-db": true,
+		"new-ui":  false,
+	},
 }
 
 // END DATA OMIT
 
 const templateText = `
 {{- "" -}}
--Company Report-
-{{- $num := len .Employees }}
-{{- $msg := "" }}
-{{- if eq $num 1 }}
-{{- $msg = "is impossible" }}
-{{- else if eq $num 2 }}
-{{- $msg = "is dreary" }}
-{{- else if ge $num 3 }}
-{{- $msg = "is company; safe and cheery" }}
-{{- end }}
-{{ printf "%s has %d employees" .Company $num  }}
-{{ printf "%d %s" $num $msg | printf "> %q" }}
+{{ .Company }} Status:
+New UI:      {{ feature "new-ui" }}
+Beta DB:     {{ feature "beta-db" }}
+Auto Update: {{ feature "auto-update" }}
 {{- "" -}}
 `
 
 const templateTextView = `
 {{- "" -}}
 // START TEMPLATE OMIT
--Company Report-
-{{- $num := len .Employees }}
-{{- $msg := getMessage $num }} // HL
-{{ printf "%s has %d employees" .Company $num  }}
-{{ printf "%d %s" $num $msg | printf "> %q" }}
+{{ .Company }} Status:
+New UI:      {{ feature "new-ui" }}
+Beta DB:     {{ feature "beta-db" }}
+Auto Update: {{ feature "auto-update" }}
 // END TEMPLATE OMIT
 {{- "" -}}
 `
 
-// START CODE OMIT
 func main() {
-	features := map[string]bool{
-		"awesome-templates": true,
-		"bad-templates":     false,
-	}
+	// START CODE OMIT
+	// var data = ...
 
-	hasFeature := func(num int) string {
-		return messages[num]
+	feature := func(name string) string {
+		if val, ok := data.Features[name]; ok {
+			if val {
+				return "enabled"
+			}
+			return "disabled"
+		}
+		return "unset"
 	}
 
 	funcMap := map[string]interface{}{
-		"hasFeature": getMessage,
+		"feature":    feature,
+		"getMessage": getMessage,
 	}
+	// END CODE OMIT
 
 	tmpl := template.Must(
-		template.New("variables").
-			Funcs(funcMap).
-			Parse(templateText),
+		template.New("variables").Funcs(funcMap).Parse(templateText),
 	)
 	_ = tmpl.Execute(os.Stdout, data)
 }
 
-// END CODE OMIT
+func getMessage(num int) string {
+	switch num {
+	case 1:
+		return "is impossbile"
+	case 2:
+		return "is dreary"
+	case 3:
+		return "is company; safe and cheery"
+	}
+	return ""
+}
