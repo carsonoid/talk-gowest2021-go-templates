@@ -172,6 +172,8 @@ Of course not!
 .play -edit examples/pipelines-intro-2.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
 .play -edit examples/pipelines-intro-4.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
 
+## Comments
+
 ## Logic
 
 Templates support `if` and  `else if` and `else` blocks:
@@ -362,28 +364,48 @@ Using the function with a closure is simple and clean and repeatable:
 
 .play examples/funcmaps-closure.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
 
-## includes and sub-templates
-  * Show `tuple` trick for args
-  * Show `with` trick to re-parent
+## Use `define` and `template` for reuse
 
-## Bigginner vs Pro
+.play -edit examples/includes.go /START DATA OMIT/,/END DATA OMIT/
 
-## text/template vs html/template
+.code examples/includes.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
 
-Contextually-aware escaping of html content renders
+## Can you allow args in sub-templates?
 
-## Other language's templates
-  * Handlebars: Javascript
-  * Mustache: MANY
-  * JinjaX: Python
-  * ERB: Ruby
+The docs say you can only pass one thing:
 
-## More Go template systems
-  * Hugo
+> {{template "name" pipeline}}
 
-## What would I like to see?
+.play examples/includes-tuple.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
 
+## `tuple` to the rescue!
 
-## Advanced Usage - Multiple Templates
+`sprig` includes a `tuple` helper function which can enable this. Or you can just duplicate it as the code is trivial
 
-.play examples/multiple.go
+.code examples/sprig-tuple.go /START CODE OMIT/,/END CODE OMIT/
+
+.code examples/includes-tuple.go /START CODE OMIT/,/END CODE OMIT/
+
+## Using `tuple` to allow args in template
+
+.play examples/includes-tuple-fixed.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
+
+## Powermove: Use `with` + `tuple` to reset "dot"
+
+.play examples/includes-tuple-with.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
+
+##  How it started:
+
+.play -edit examples/conclusion.go /START CODE OMIT/,/END CODE OMIT/
+
+.code examples/conclusion.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
+
+## How it's going:
+
+.play examples/conclusion-fixed.go /START CODE OMIT/,/END CODE OMIT/
+
+.code examples/conclusion-fixed.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
+
+<!-- ## Advanced Usage - Multiple Templates -->
+
+<!-- .play examples/multiple.go -->
