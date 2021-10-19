@@ -196,9 +196,13 @@ that only contain conditionals!
 
 Visualized:
 
-.code examples/whitespace-intro-2.go /START EXAMPLE OMIT/,/END EXAMPLE OMIT/
+.code examples/whitespace-intro-viz.go /START EXAMPLE OMIT/,/END EXAMPLE OMIT/
 
-## Time to Chomp
+## Bad Idea
+
+.play examples/whitespace-intro-bad.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
+
+## Good idea: Chomp
 
 Using `{{-` or `-}}` in any action will cause the templates to trim all whitespace
 in the direction of the `-`
@@ -215,13 +219,22 @@ in the direction of the `-`
 
 `{{-` doesn't really work as expected when it's on the first line:
 
+.play  -edit examples/whitespace-intro-4.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
+
+## Gotcha: The first line
+
+`{{-` doesn't really work as expected when it's on the first line:
+
 .play examples/whitespace-intro-4.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
+
+## Gotcha: The first line
 
 You can fix it though!
 
 .play examples/whitespace-intro-4-fixed.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
 
 .play examples/whitespace-intro-4-fixed2.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
+
 
 ## Comments
 

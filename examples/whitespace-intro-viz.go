@@ -12,15 +12,30 @@ var data = struct {
 	Employees []string
 }{
 	"Weave",
-	[]string{"Carson", "Kari <3", "Tami", "Raul"},
+	[]string{"Carson", "Kari", "Tami", "Raul"},
 }
 
 // END DATA OMIT
 
+const exampleText = `
+{{- "" -}}
+// START EXAMPLE OMIT
+Company: {{ .Company }}\n
+{{ if .Employees }}\n
+Data: {{ . }}\n
+{{ end }}\n
+// END EXAMPLE OMIT
+{{- "" }}
+`
+
+// trailing whitespace is to facilitate highlighting
 const templateText = `
 {{- "" -}}
 // START TEMPLATE OMIT
-{{  len .Employees | printf "%s: %03d" "# employees" }}
+Company: {{ .Company }} 
+{{- if .Employees }} 
+Data: {{ . }} 
+{{- end }}
 // END TEMPLATE OMIT
 {{- "" -}}
 `

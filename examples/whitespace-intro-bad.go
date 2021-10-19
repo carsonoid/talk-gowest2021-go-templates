@@ -12,7 +12,7 @@ var data = struct {
 	Employees []string
 }{
 	"Weave",
-	[]string{"Carson", "Kari <3", "Tami", "Raul"},
+	[]string{"Carson", "Kari", "Tami", "Raul"},
 }
 
 // END DATA OMIT
@@ -20,7 +20,8 @@ var data = struct {
 const templateText = `
 {{- "" -}}
 // START TEMPLATE OMIT
-{{  len .Employees | printf "%s: %03d" "# employees" }}
+Company: {{ .Company }}{{ if .Employees }}
+Employees: {{ .Employees }}{{ end }}
 // END TEMPLATE OMIT
 {{- "" -}}
 `

@@ -12,7 +12,7 @@ var data = struct {
 	Employees []string
 }{
 	"Weave",
-	[]string{"Carson", "Kari", "Tami", "Raul"},
+	[]string{"Carson", "Kari <3", "Tami", "Raul"},
 }
 
 // END DATA OMIT
