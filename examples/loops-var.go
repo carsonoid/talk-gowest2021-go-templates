@@ -20,13 +20,12 @@ var data = struct {
 const templateText = `
 {{- "" -}}
 Map Range:
-{{ range $k, $v := .TeamDescriptions }}{{ println $k "is" $v }}{{ end }}
+{{ range $v := .TeamDescriptions }}{{ println $v }}{{ end }}
 Slice Range:
-{{ range $i, $x := .Employees }}{{ println $i $x  }}{{ end }}
+{{ range $e := .Employees }}{{ println $e }}{{ end }}
 
-Dot still changed!
-{{- range $i, $e := .Employees }}
-$i:  {{ $i }}
+Dot Still changed!
+{{- range $e := .Employees }}
 $e:  {{ $e }}
 Dot: {{ . }}
 {{- end }}
@@ -37,13 +36,12 @@ const templateTextView = `
 {{- "" -}}
 // START TEMPLATE OMIT
 Map Range:
-{{ range $k, $v := .TeamDescriptions }}{{ println $k "is" $v }}{{ end }}
+{{ range $v := .TeamDescriptions }}{{ println $v }}{{ end }}
 Slice Range:
-{{ range $i, $x := .Employees }}{{ println $i $x  }}{{ end }}
+{{ range $e := .Employees }}{{ println $e }}{{ end }}
 
-Dot still changed!
-{{- range $i, $e := .Employees }}
-$i:  {{ $i }}
+Dot still changed:
+{{- range $e := .Employees }}
 $e:  {{ $e }}
 Dot: {{ . }}
 {{- end }}

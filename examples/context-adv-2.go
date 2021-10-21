@@ -8,24 +8,34 @@ import (
 
 const templateText = `
 {{- "" -}}
-My context is:                  {{ . }}
-
+My context looks like this:     {{ . }}
 {{- /* You can use variables to store data before a context change */}}
 {{- $data := . }}
 {{- with .Company }}
 "with .Company" the context is: {{ . }}
+Root: {{ $data }}
+Employees: {{ $data.Employees }}
+{{- /* Or you can always use $ to get the "root" data. */}}
+Root: {{ $ }}
+Employees: {{ $.Employees }}
 {{- end }}
 {{- "" -}}
 `
 
 const templateTextView = `
 // START TEMPLATE OMIT
-My context is:                  {{ . }}
+My context looks like this:     {{ . }}
 
 {{- /* You can use variables to store data before a context change */}}
 {{- $data := . }}
 {{- with .Company }}
 "with .Company" the context is: {{ . }}
+Root: {{ $data }}
+Employees: {{ $data.Employees }}
+
+{{- /* Or you can always use $ to get the "root" data. */}}
+Root: {{ $ }}
+Employees: {{ $.Employees }}
 {{- end }}
 // END TEMPLATE OMIT
 `

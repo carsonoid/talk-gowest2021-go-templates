@@ -86,7 +86,7 @@ Almost everything in this talk applies to both but most examples will use `text/
 
 `template.Must` is a helper that allows for easy package var assignment and one-liners. It ensures a panic on any parse error.
 
-.play examples/basic-minimal.go
+.play -edit examples/basic-minimal.go
 
 ## Text vs HTML Template
 
@@ -111,14 +111,6 @@ Even in a constant
 You can of course load them from a file:
 
 .play examples/parsefile.go
-
-## Large Static Templates
-
-With go 1.16+ they can easily be embedded into your binary!
-
-`templates/hello.tmpl`
-
-.code templates/hello.tmpl
 
 ## Large Static Templates
 
@@ -164,6 +156,14 @@ Thanks `go:embed`!
 .play -edit examples/pipelines-intro-3.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
 .play -edit examples/pipelines-intro-2.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
 .play -edit examples/pipelines-intro-4.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
+
+## Logic
+
+Templates support `if` and  `else if` and `else` blocks:
+
+.play -edit examples/logic.go /START DATA OMIT/,/END DATA OMIT/
+
+.code examples/logic.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
 
 ## Logic
 
@@ -272,7 +272,6 @@ Without them, things get ugly:
 
 .code examples/variables-scope-fixed.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
 
-
 ## "dot" - watch your context!
 
 By default, `.` "dot" is the full data object passed when called
@@ -289,6 +288,13 @@ Use `with` to explicitly change dot and simplify conditions.
 
 .play examples/context-adv.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
 
+## "dot" - you can change it!
+
+Use variables to preserve old context or `$` to access the root.
+
+.play examples/context-adv-2.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
+
+
 ## Loops
 
 Templates can use `range` to iterate slices and maps.
@@ -298,7 +304,7 @@ It works a bit different from normal code in a single-value context:
 * maps:  **value** by default, not *key*
 * Slices: **item** by default, not *index*
 
-> `range` sets `.` **by default**!
+> `range` always sets `.`
 
 ## range in code
 
@@ -311,6 +317,13 @@ It works a bit different from normal code in a single-value context:
 .play -edit examples/loops.go /START DATA OMIT/,/END DATA OMIT/
 
 .code examples/loops.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
+
+## range with variable
+
+.play -edit examples/loops-var.go /START DATA OMIT/,/END DATA OMIT/
+
+.code examples/loops-var.go /START TEMPLATE OMIT/,/END TEMPLATE OMIT/
+
 
 ## Loops - Advanced
 
