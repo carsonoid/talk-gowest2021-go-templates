@@ -12,7 +12,7 @@ DevX Engineer, Weave
 
 ## Runing it Locally
 
-This presentation uses a custom theme and can be run locally by installing the present tool and starting it:
+This presentation uses a custom theme and helpers to enable go:embed use the included script to start it:
 
 ```bash
 ./run
