@@ -11,7 +11,6 @@ const templateText = `
 My context is:                  {{ . }}
 
 {{- /* You can use variables to store data before a context change */}}
-{{- $data := . }}
 {{- with .Company }}
 "with .Company" the context is: {{ . }}
 {{- end }}
@@ -23,7 +22,6 @@ const templateTextView = `
 My context is:                  {{ . }}
 
 {{- /* You can use variables to store data before a context change */}}
-{{- $data := . }}
 {{- with .Company }}
 "with .Company" the context is: {{ . }}
 {{- end }}

@@ -46,7 +46,6 @@ Dogs:
 {{- range .Employees }}
 {{- template "employee" (tuple . "Dog") }}
 {{- end }}
-// END TEMPLATE OMIT
 {{- "" -}}
 `
 

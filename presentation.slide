@@ -299,12 +299,14 @@ Use variables to preserve old context or `$` to access the root.
 
 Templates can use `range` to iterate slices and maps.
 
-It works a bit different from normal code in a single-value context:
+> `range` always sets `.`
+
+## Loops
+
+`range` works a bit different from normal code in a single-value context:
 
 * maps:  **value** by default, not *key*
 * Slices: **item** by default, not *index*
-
-> `range` always sets `.`
 
 ## range in code
 
