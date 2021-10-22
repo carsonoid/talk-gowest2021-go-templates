@@ -15,5 +15,5 @@ DevX Engineer, Weave
 This presentation uses a custom theme and can be run locally by installing the present tool and starting it:
 
 ```bash
-present -use_playground=false -base theme
+./run
 ```
